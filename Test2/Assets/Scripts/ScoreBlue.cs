@@ -1,18 +1,18 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class ScoreBlue : MonoBehaviour
 {
-    public string collisionTag; // Тег объекта, с которым должен столкнуться куб
-    public string DropTagBlue;//Тэг красных
-    public string collisionCounterName; // Имя элемента UI Text, в который нужно записывать счет столкновений
-    private int collisionCount = 0;//Счетчик синих
-    private Text collisionCounter;//Компонент текста
-    public bool dropBlue = false;// Переменная сброса обьекта
+    public string collisionTag; // РўРµРі РѕР±СЉРµРєС‚Р°, СЃ РєРѕС‚РѕСЂС‹Рј РґРѕР»Р¶РµРЅ СЃС‚РѕР»РєРЅСѓС‚СЊСЃСЏ РєСѓР±
+    public string DropTagBlue;//РўСЌРі РєСЂР°СЃРЅС‹С…
+    public string collisionCounterName; // РРјСЏ СЌР»РµРјРµРЅС‚Р° UI Text, РІ РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ Р·Р°РїРёСЃС‹РІР°С‚СЊ СЃС‡РµС‚ СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№
+    private int collisionCount = 0;//РЎС‡РµС‚С‡РёРє СЃРёРЅРёС…
+    private Text collisionCounter;//РљРѕРјРїРѕРЅРµРЅС‚ С‚РµРєСЃС‚Р°
+    public bool dropBlue = false;// РџРµСЂРµРјРµРЅРЅР°СЏ СЃР±СЂРѕСЃР° РѕР±СЊРµРєС‚Р°
     private void Start()
     {
-        // Находим элемент UI Text по имени
+        // РќР°С…РѕРґРёРј СЌР»РµРјРµРЅС‚ UI Text РїРѕ РёРјРµРЅРё
         collisionCounter = GameObject.Find(collisionCounterName).GetComponent<Text>();
     }
 
@@ -20,18 +20,18 @@ public class ScoreBlue : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(collisionTag))
         {
-            dropBlue = false;//не бросаем куб
-            Destroy(gameObject); // Удаляем куб
-            collisionCount++; // Увеличиваем счетчик столкновений
-            collisionCounter.text = (int.Parse(collisionCounter.text) + 1).ToString(); // Обновляем UI Text с счетчиком столкновений
+            dropBlue = false;//РЅРµ Р±СЂРѕСЃР°РµРј РєСѓР±
+            Destroy(gameObject); // РЈРґР°Р»СЏРµРј РєСѓР±
+            collisionCount++; // РЈРІРµР»РёС‡РёРІР°РµРј СЃС‡РµС‚С‡РёРє СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№
+            collisionCounter.text = (int.Parse(collisionCounter.text) + 1).ToString(); // РћР±РЅРѕРІР»СЏРµРј UI Text СЃ СЃС‡РµС‚С‡РёРєРѕРј СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№
         }
         else if (collision.gameObject.CompareTag(DropTagBlue))
         {
-            dropBlue = true;//бросаем куб
+            dropBlue = true;//Р±СЂРѕСЃР°РµРј РєСѓР±
         }
         else
         {
-            dropBlue = false;//не бросаем куб
+            dropBlue = false;//РЅРµ Р±СЂРѕСЃР°РµРј РєСѓР±
         }
       
     }

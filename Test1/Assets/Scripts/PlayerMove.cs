@@ -1,58 +1,58 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PlayerMove : MonoBehaviour
 {
-    // Обьекты
+    // РћР±СЊРµРєС‚С‹
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private FixedJoystick _joystick;
     [SerializeField] private float _Speed;
-    // Кликабельный слой
+    // РљР»РёРєР°Р±РµР»СЊРЅС‹Р№ СЃР»РѕР№
     public LayerMask clickOn;
-    // Агент
+    // РђРіРµРЅС‚
     private NavMeshAgent m_Agent;
 
     private void Start()
     {
-        // Получаем компонент агента
+        // РџРѕР»СѓС‡Р°РµРј РєРѕРјРїРѕРЅРµРЅС‚ Р°РіРµРЅС‚Р°
         m_Agent = GetComponent<NavMeshAgent>();
     }
 
-    // Передвижение тапом
+    // РџРµСЂРµРґРІРёР¶РµРЅРёРµ С‚Р°РїРѕРј
     private void Update()
     {
-        //Фиксируем нажатие
+        //Р¤РёРєСЃРёСЂСѓРµРј РЅР°Р¶Р°С‚РёРµ
         if (Input.GetMouseButtonDown(0))
         {
-            //Пускаем луч
+            //РџСѓСЃРєР°РµРј Р»СѓС‡
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hInfo;
             if (Physics.Raycast(myRay, out hInfo, 100, clickOn))
             {
-                    // Двигаем
+                    // Р”РІРёРіР°РµРј
                     m_Agent.SetDestination(hInfo.point);
             }
         }
     }
 
-    //Передвижение джойстиком
+    //РџРµСЂРµРґРІРёР¶РµРЅРёРµ РґР¶РѕР№СЃС‚РёРєРѕРј
     private void FixedUpdate()
     {
 
-        // Проверяем активен ли джойстик
+        // РџСЂРѕРІРµСЂСЏРµРј Р°РєС‚РёРІРµРЅ Р»Рё РґР¶РѕР№СЃС‚РёРє
         if(_joystick.Horizontal != 0)
         {
-            //Выключаем агент
+            //Р’С‹РєР»СЋС‡Р°РµРј Р°РіРµРЅС‚
             m_Agent.enabled = false;
         }
         else
         {
-            //Включаем агент
+            //Р’РєР»СЋС‡Р°РµРј Р°РіРµРЅС‚
             m_Agent.enabled = true;
         }
-        //Двигаем
+        //Р”РІРёРіР°РµРј
         _rb.velocity = new Vector3(_joystick.Horizontal * _Speed , _rb.velocity.y , _joystick.Vertical * _Speed);
        
     }

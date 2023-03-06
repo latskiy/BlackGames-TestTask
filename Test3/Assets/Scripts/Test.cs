@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,32 +8,32 @@ using UnityEngine.EventSystems;
 
 public class Test : MonoBehaviour, IPointerClickHandler
 {
-    // Таймер
+    // РўР°Р№РјРµСЂ
     private float timePressed = 0f;
-    //Текст
+    //РўРµРєСЃС‚
     public Text redText;
     public Text greenText;
     public Text blueText;
-    //Кнопки
+    //РљРЅРѕРїРєРё
     public Button randomButton;
     public Button increaseButton;
     public Button decreaseButton;
-    //Слайдер
+    //РЎР»Р°Р№РґРµСЂ
     public Slider greenSlider;
-    //Переменные обьектов
+    //РџРµСЂРµРјРµРЅРЅС‹Рµ РѕР±СЊРµРєС‚РѕРІ
     private Renderer objectRenderer;
     private Graphic panelRenderer;
-    //Переменная слоя
+    //РџРµСЂРµРјРµРЅРЅР°СЏ СЃР»РѕСЏ
     int pTag;
     void Start()
     {
-        //Задаем стартовые значения
+        //Р—Р°РґР°РµРј СЃС‚Р°СЂС‚РѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
         objectRenderer = null;
         panelRenderer = null;
         redText.text = "0";
         greenText.text = "0";
         blueText.text = "0";
-        // Запускаем прослушку
+        // Р—Р°РїСѓСЃРєР°РµРј РїСЂРѕСЃР»СѓС€РєСѓ
         increaseButton.onClick.AddListener(IncreaseRed);
         decreaseButton.onClick.AddListener(DecreaseRed);
         greenSlider.onValueChanged.AddListener(UpdateGreen);
@@ -41,25 +41,25 @@ public class Test : MonoBehaviour, IPointerClickHandler
     }
     
 
-    //Обрабатываем нажатия
+    //РћР±СЂР°Р±Р°С‚С‹РІР°РµРј РЅР°Р¶Р°С‚РёСЏ
     public void OnPointerClick(PointerEventData eventData)
     {
 
         //Debug.Log("Button is clicked");
         GameObject clickedObjectP = eventData.pointerCurrentRaycast.gameObject;
-        //Проверяем есть ли тэг UI
+        //РџСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё С‚СЌРі UI
         if (clickedObjectP.CompareTag("PTag"))
         {
             pTag= 1;
       
-            //Получаем компонент
+            //РџРѕР»СѓС‡Р°РµРј РєРѕРјРїРѕРЅРµРЅС‚
             var graphic = eventData.pointerCurrentRaycast.gameObject.GetComponent<UnityEngine.UI.Graphic>();
-            //Проверяем графический ли он
+            //РџСЂРѕРІРµСЂСЏРµРј РіСЂР°С„РёС‡РµСЃРєРёР№ Р»Рё РѕРЅ
             if (graphic != null)
             {
-                // Делаем ссылку
+                // Р”РµР»Р°РµРј СЃСЃС‹Р»РєСѓ
                 panelRenderer = clickedObjectP.GetComponent<Graphic>();
-                // Записываем цвет в текстовые поля
+                // Р—Р°РїРёСЃС‹РІР°РµРј С†РІРµС‚ РІ С‚РµРєСЃС‚РѕРІС‹Рµ РїРѕР»СЏ
                 Color panelColor = graphic.color;
                 redText.text = Mathf.RoundToInt(panelColor.r * 255f).ToString();
                 greenText.text = Mathf.RoundToInt(panelColor.g * 255f).ToString();
@@ -73,27 +73,27 @@ public class Test : MonoBehaviour, IPointerClickHandler
         {
             pTag= 0;
 
-            // Получаем объект, на который нажали
+            // РџРѕР»СѓС‡Р°РµРј РѕР±СЉРµРєС‚, РЅР° РєРѕС‚РѕСЂС‹Р№ РЅР°Р¶Р°Р»Рё
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             
             if (clickedObject == null)
             {
-                // Объект не найден
+                // РћР±СЉРµРєС‚ РЅРµ РЅР°Р№РґРµРЅ
                 return;
             }
 
-            // Получаем рендерер объекта, на который нажали
+            // РџРѕР»СѓС‡Р°РµРј СЂРµРЅРґРµСЂРµСЂ РѕР±СЉРµРєС‚Р°, РЅР° РєРѕС‚РѕСЂС‹Р№ РЅР°Р¶Р°Р»Рё
             objectRenderer = clickedObject.GetComponent<Renderer>();
             if (objectRenderer == null)
             {
-                // Рендерер не найден
+                // Р РµРЅРґРµСЂРµСЂ РЅРµ РЅР°Р№РґРµРЅ
                 return;
             }
 
-            // Получаем цвет материала объекта
+            // РџРѕР»СѓС‡Р°РµРј С†РІРµС‚ РјР°С‚РµСЂРёР°Р»Р° РѕР±СЉРµРєС‚Р°
             Color objectColor = objectRenderer.material.color;
 
-            // Записываем цвет в текстовые поля
+            // Р—Р°РїРёСЃС‹РІР°РµРј С†РІРµС‚ РІ С‚РµРєСЃС‚РѕРІС‹Рµ РїРѕР»СЏ
             redText.text = Mathf.RoundToInt(objectColor.r * 255f).ToString();
             greenText.text = Mathf.RoundToInt(objectColor.g * 255f).ToString();
             blueText.text = Mathf.RoundToInt(objectColor.b * 255f).ToString();
@@ -102,7 +102,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    //Увеличение красного 
+    //РЈРІРµР»РёС‡РµРЅРёРµ РєСЂР°СЃРЅРѕРіРѕ 
     public void IncreaseRed()
     {
         int red = int.Parse(redText.text);
@@ -115,7 +115,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
         UpdateColor();
     }
 
-    //Уменьшение красного
+    //РЈРјРµРЅСЊС€РµРЅРёРµ РєСЂР°СЃРЅРѕРіРѕ
     public void DecreaseRed()
     {
         int red = int.Parse(redText.text);
@@ -128,7 +128,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
         UpdateColor();
     }
 
-    //Обновление положения слайдера
+    //РћР±РЅРѕРІР»РµРЅРёРµ РїРѕР»РѕР¶РµРЅРёСЏ СЃР»Р°Р№РґРµСЂР°
     public void UpdateGreen(float value)
     {
         int green = Mathf.RoundToInt(value * 255f);
@@ -137,10 +137,10 @@ public class Test : MonoBehaviour, IPointerClickHandler
         UpdateColor();
     }
 
-    //Задаем цвет
+    //Р—Р°РґР°РµРј С†РІРµС‚
     private void UpdateColor()
     {
-        //Если это 3d
+        //Р•СЃР»Рё СЌС‚Рѕ 3d
         if (pTag == 0)
         {
             
@@ -155,7 +155,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
                 objectRenderer.material.color = newColor;
             }
         }
-        //Если это UI
+        //Р•СЃР»Рё СЌС‚Рѕ UI
         else
         {
             
@@ -168,7 +168,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    //Рандомизация синего
+    //Р Р°РЅРґРѕРјРёР·Р°С†РёСЏ СЃРёРЅРµРіРѕ
     public void RandomizeBlue()
     {
         int blue = UnityEngine.Random.Range(0, 256);
@@ -176,32 +176,32 @@ public class Test : MonoBehaviour, IPointerClickHandler
         UpdateColor();
     }
 
-    // Зажатие + и -
+    // Р—Р°Р¶Р°С‚РёРµ + Рё -
     public void Update()
     {
-        // Проверяем нажатие
+        // РџСЂРѕРІРµСЂСЏРµРј РЅР°Р¶Р°С‚РёРµ
         if (Input.GetMouseButton(0))
         {
             if (increaseButton == null) return;
-            // Проверяем что нажата кнопка +
+            // РџСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° +
             if (increaseButton.gameObject == EventSystem.current.currentSelectedGameObject)
             {
-                timePressed += Time.deltaTime; // добавляем время, прошедшее с момента зажатия кнопки
-                if (timePressed >= 0.2f) // если кнопка была зажата 0.2 секунды или более
+                timePressed += Time.deltaTime; // РґРѕР±Р°РІР»СЏРµРј РІСЂРµРјСЏ, РїСЂРѕС€РµРґС€РµРµ СЃ РјРѕРјРµРЅС‚Р° Р·Р°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё
+                if (timePressed >= 0.2f) // РµСЃР»Рё РєРЅРѕРїРєР° Р±С‹Р»Р° Р·Р°Р¶Р°С‚Р° 0.2 СЃРµРєСѓРЅРґС‹ РёР»Рё Р±РѕР»РµРµ
                 {
-                    //Запускаем перемотку
+                    //Р—Р°РїСѓСЃРєР°РµРј РїРµСЂРµРјРѕС‚РєСѓ
                     //Debug.Log("0.2 seconds");
                     IncreaseRed();
                 }
             }
             if (decreaseButton == null) return;
-            // Проверяем что нажата кнопка -
+            // РџСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° -
             if (decreaseButton.gameObject == EventSystem.current.currentSelectedGameObject)
             {
-                timePressed += Time.deltaTime; // добавляем время, прошедшее с момента зажатия кнопки
-                if (timePressed >= 0.2f) // если кнопка была зажата 0.2 секунды или более
+                timePressed += Time.deltaTime; // РґРѕР±Р°РІР»СЏРµРј РІСЂРµРјСЏ, РїСЂРѕС€РµРґС€РµРµ СЃ РјРѕРјРµРЅС‚Р° Р·Р°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё
+                if (timePressed >= 0.2f) // РµСЃР»Рё РєРЅРѕРїРєР° Р±С‹Р»Р° Р·Р°Р¶Р°С‚Р° 0.2 СЃРµРєСѓРЅРґС‹ РёР»Рё Р±РѕР»РµРµ
                 {
-                    //Запускаем перемотку
+                    //Р—Р°РїСѓСЃРєР°РµРј РїРµСЂРµРјРѕС‚РєСѓ
                     //Debug.Log("0.2 seconds");
                     DecreaseRed();
                 }
@@ -209,7 +209,7 @@ public class Test : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            timePressed = 0f; // обнуляем время, если кнопка не зажата
+            timePressed = 0f; // РѕР±РЅСѓР»СЏРµРј РІСЂРµРјСЏ, РµСЃР»Рё РєРЅРѕРїРєР° РЅРµ Р·Р°Р¶Р°С‚Р°
         }
     }
 

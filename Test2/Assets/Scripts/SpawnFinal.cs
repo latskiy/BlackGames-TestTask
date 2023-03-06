@@ -1,45 +1,45 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class SpawnFinal : MonoBehaviour
 {
-    public GameObject blueCubePrefab; // префаб голубого куба
-    public GameObject redCubePrefab; // префаб красного куба
-    public int totalCubeCount; // общее количество кубов, которые будут созданы
-    public float spawnDelay; // задержка между появлениями кубов
-    public string objectTag; // тег объекта, который будет использован для проверки наличия объектов в сцене
-    public GameObject objectToActivate; // объект, который нужно активировать, если объектов с заданным тегом нет в сцене
-    public string RedScore; // имя объекта, содержащего текст для отображения количества очков красной команды
-    private Text RedScoreText; // компонент Text, связанный с объектом для отображения количества очков красной команды
-    public string BlueScore; // имя объекта, содержащего текст для отображения количества очков голубой команды
-    private Text BlueScoreText; // компонент Text, связанный с объектом для отображения количества очков голубой команды
+    public GameObject blueCubePrefab; // РїСЂРµС„Р°Р± РіРѕР»СѓР±РѕРіРѕ РєСѓР±Р°
+    public GameObject redCubePrefab; // РїСЂРµС„Р°Р± РєСЂР°СЃРЅРѕРіРѕ РєСѓР±Р°
+    public int totalCubeCount; // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєСѓР±РѕРІ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ СЃРѕР·РґР°РЅС‹
+    public float spawnDelay; // Р·Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ РїРѕСЏРІР»РµРЅРёСЏРјРё РєСѓР±РѕРІ
+    public string objectTag; // С‚РµРі РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РґР»СЏ РїСЂРѕРІРµСЂРєРё РЅР°Р»РёС‡РёСЏ РѕР±СЉРµРєС‚РѕРІ РІ СЃС†РµРЅРµ
+    public GameObject objectToActivate; // РѕР±СЉРµРєС‚, РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ, РµСЃР»Рё РѕР±СЉРµРєС‚РѕРІ СЃ Р·Р°РґР°РЅРЅС‹Рј С‚РµРіРѕРј РЅРµС‚ РІ СЃС†РµРЅРµ
+    public string RedScore; // РёРјСЏ РѕР±СЉРµРєС‚Р°, СЃРѕРґРµСЂР¶Р°С‰РµРіРѕ С‚РµРєСЃС‚ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РєСЂР°СЃРЅРѕР№ РєРѕРјР°РЅРґС‹
+    private Text RedScoreText; // РєРѕРјРїРѕРЅРµРЅС‚ Text, СЃРІСЏР·Р°РЅРЅС‹Р№ СЃ РѕР±СЉРµРєС‚РѕРј РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РєСЂР°СЃРЅРѕР№ РєРѕРјР°РЅРґС‹
+    public string BlueScore; // РёРјСЏ РѕР±СЉРµРєС‚Р°, СЃРѕРґРµСЂР¶Р°С‰РµРіРѕ С‚РµРєСЃС‚ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РіРѕР»СѓР±РѕР№ РєРѕРјР°РЅРґС‹
+    private Text BlueScoreText; // РєРѕРјРїРѕРЅРµРЅС‚ Text, СЃРІСЏР·Р°РЅРЅС‹Р№ СЃ РѕР±СЉРµРєС‚РѕРј РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РіРѕР»СѓР±РѕР№ РєРѕРјР°РЅРґС‹
 
     private void Start()
     {
-        RedScoreText = GameObject.Find(RedScore).GetComponent<Text>(); // находим объект Text для отображения количества очков красной команды
-        BlueScoreText = GameObject.Find(BlueScore).GetComponent<Text>(); // находим объект Text для отображения количества очков голубой команды
-        StartCoroutine(SpawnCubes()); // запускаем корутину для создания кубов с заданными параметрами
+        RedScoreText = GameObject.Find(RedScore).GetComponent<Text>(); // РЅР°С…РѕРґРёРј РѕР±СЉРµРєС‚ Text РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РєСЂР°СЃРЅРѕР№ РєРѕРјР°РЅРґС‹
+        BlueScoreText = GameObject.Find(BlueScore).GetComponent<Text>(); // РЅР°С…РѕРґРёРј РѕР±СЉРµРєС‚ Text РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РѕС‡РєРѕРІ РіРѕР»СѓР±РѕР№ РєРѕРјР°РЅРґС‹
+        StartCoroutine(SpawnCubes()); // Р·Р°РїСѓСЃРєР°РµРј РєРѕСЂСѓС‚РёРЅСѓ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РєСѓР±РѕРІ СЃ Р·Р°РґР°РЅРЅС‹РјРё РїР°СЂР°РјРµС‚СЂР°РјРё
     }
 
     private IEnumerator SpawnCubes()
     {
-        for (int i = 0; i < totalCubeCount; i++) // создаем заданное количество кубов
+        for (int i = 0; i < totalCubeCount; i++) // СЃРѕР·РґР°РµРј Р·Р°РґР°РЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєСѓР±РѕРІ
         {
-            GameObject cubePrefab = (Random.Range(0, 2) == 0) ? blueCubePrefab : redCubePrefab; // выбираем случайным образом префаб для создания куба
+            GameObject cubePrefab = (Random.Range(0, 2) == 0) ? blueCubePrefab : redCubePrefab; // РІС‹Р±РёСЂР°РµРј СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј РїСЂРµС„Р°Р± РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РєСѓР±Р°
 
-            Vector3 spawnPosition = GetSpawnPosition(); // получаем позицию, где нужно создать куб
+            Vector3 spawnPosition = GetSpawnPosition(); // РїРѕР»СѓС‡Р°РµРј РїРѕР·РёС†РёСЋ, РіРґРµ РЅСѓР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РєСѓР±
 
-            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity); // создаем куб с выбранным префабом и заданной позицией
+            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity); // СЃРѕР·РґР°РµРј РєСѓР± СЃ РІС‹Р±СЂР°РЅРЅС‹Рј РїСЂРµС„Р°Р±РѕРј Рё Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРµР№
 
-            yield return new WaitForSeconds(spawnDelay); // ждем заданную задержку перед созданием следующего куба
+            yield return new WaitForSeconds(spawnDelay); // Р¶РґРµРј Р·Р°РґР°РЅРЅСѓСЋ Р·Р°РґРµСЂР¶РєСѓ РїРµСЂРµРґ СЃРѕР·РґР°РЅРёРµРј СЃР»РµРґСѓСЋС‰РµРіРѕ РєСѓР±Р°
         }
     }
 
     private void Update()
     {
-        // Получаем все объекты с тегом "objectTag"
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(objectTag);// оптимизация в минус, надо придумать что то другое
+        // РџРѕР»СѓС‡Р°РµРј РІСЃРµ РѕР±СЉРµРєС‚С‹ СЃ С‚РµРіРѕРј "objectTag"
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(objectTag);// РѕРїС‚РёРјРёР·Р°С†РёСЏ РІ РјРёРЅСѓСЃ, РЅР°РґРѕ РїСЂРёРґСѓРјР°С‚СЊ С‡С‚Рѕ С‚Рѕ РґСЂСѓРіРѕРµ
 
         if (objectsWithTag.Length == 0)
         {
@@ -53,19 +53,19 @@ public class SpawnFinal : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        // Получаем координаты текущего объекта
+        // РџРѕР»СѓС‡Р°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РµРєСѓС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
         float rX = transform.position.x;
         float rY = transform.position.y;
         float rZ = transform.position.z;
 
-        // Создаем новую позицию для спавна куба используя координаты текущего объекта
+        // РЎРѕР·РґР°РµРј РЅРѕРІСѓСЋ РїРѕР·РёС†РёСЋ РґР»СЏ СЃРїР°РІРЅР° РєСѓР±Р° РёСЃРїРѕР»СЊР·СѓСЏ РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РµРєСѓС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
         Vector3 spawnPosition = new Vector3(rX, rY, rZ);
         return spawnPosition;
     }
 
     public void RestartSpawnAndDeactivate()
     {
-        // Деактивируем "objectToActivate", сбрасываем счетчики очков и начинаем спавн кубов заново
+        // Р”РµР°РєС‚РёРІРёСЂСѓРµРј "objectToActivate", СЃР±СЂР°СЃС‹РІР°РµРј СЃС‡РµС‚С‡РёРєРё РѕС‡РєРѕРІ Рё РЅР°С‡РёРЅР°РµРј СЃРїР°РІРЅ РєСѓР±РѕРІ Р·Р°РЅРѕРІРѕ
         objectToActivate.SetActive(false);
         RedScoreText.text = "0";
         BlueScoreText.text = "0";
